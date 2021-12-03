@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     Vector2 currentDirection = Vector2.zero;
     Vector2 currentDirectionVelocity = Vector2.zero;
 
-    Vector2 currentMouseDelta = Vector2.zero;
-    Vector2 currentMouseDeltaVelocity = Vector2.zero;
+    static Vector2 currentMouseDelta = Vector2.zero;
+    static Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
     void Start()
     {
@@ -62,5 +62,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 velocity = (transform.forward * currentDirection.y + transform.right * currentDirection.x) * speed + Vector3.up * fallSpeed;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public static void DisableMouseLook()
+    {
+        currentMouseDelta = Vector2.zero;
+        currentMouseDeltaVelocity = Vector2.zero;
     }
 }

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class UI_Script : MonoBehaviour
 {
     static public int collectedNum = 0;
-    static public float health = 100f;
+    static public float health = 100.0f;
     static public bool hit;
 
     private GameObject[] collectables;
     private bool isPaused;
+    private bool pressAllowed;
     public GameObject pauseMenu;
+    public GameObject gameOverScreen;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public Image hurtImage;
     public Slider collectorSlider;
@@ -22,6 +24,7 @@ public class UI_Script : MonoBehaviour
         collectables = GameObject.FindGameObjectsWithTag("Collectable");
         collectorSlider.maxValue = collectables.Length;
         collectorSlider.value = collectedNum;
+        pressAllowed = true;
 
         healthBar.value = health;
     }
@@ -31,18 +34,25 @@ public class UI_Script : MonoBehaviour
         collectorSlider.value = collectedNum;
         healthBar.value = health;
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (pressAllowed)
         {
-            isPaused = !isPaused;
-        }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = !isPaused;
+            }
 
-        if(isPaused)
-        {
-            ActivateMenu();
+            if (isPaused)
+            {
+                ActivateMenu();
+            }
+            else
+            {
+                DeactivateMenu();
+            }
         }
         else
         {
-            DeactivateMenu();
+            //Nothing
         }
 
         if (hit)
@@ -53,6 +63,20 @@ public class UI_Script : MonoBehaviour
         {
             hurtImage.color = Color.Lerp(hurtImage.color, Color.clear, 5f * Time.deltaTime);
         }
+
+        CheckForDeath();
+    }
+
+    void CheckForDeath()
+    {
+        if(health <= 0)
+        {
+            gameOverScreen.SetActive(true);
+            Time.timeScale = 0;
+            AudioListener.pause = false;
+            PlayerController.DisableMouseLook();
+            pressAllowed = false;
+        }
     }
 
     void ActivateMenu()
@@ -60,6 +84,7 @@ public class UI_Script : MonoBehaviour
         Time.timeScale = 0;
         AudioListener.pause = true;
         pauseMenu.SetActive(true);
+        PlayerController.DisableMouseLook();
     }
 
     public void DeactivateMenu()

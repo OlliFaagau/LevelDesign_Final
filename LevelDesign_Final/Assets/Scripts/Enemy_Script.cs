@@ -87,7 +87,8 @@ public class Enemy_Script : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        UI_Script.health -= 0.5f;
+        if(collision.gameObject.CompareTag("Player"))
+            UI_Script.health -= 0.5f;
     }
     void OnCollisionExit(Collision collision)
     {
