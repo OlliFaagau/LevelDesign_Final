@@ -28,8 +28,9 @@ public class UI_Script : MonoBehaviour
         collectorSlider.value = collectedNum;
         pressAllowed = true;
 
-        gameOverScreen.SetActive(false);
+        // Olli messed with ur script here
         health = baseHealth;
+        collectedNum = 0;
 
         healthBar.value = health;
     }
