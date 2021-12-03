@@ -28,22 +28,26 @@ public class Enemy_Script : MonoBehaviour
         isChasing = false;
     }
 
-    
+
     void Update()
     {
         distance = Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position);
         distanceBtwObjs = Vector3.Distance(player.transform.position, transform.position);
 
-        if(distanceBtwObjs < 15)
+        if (distanceBtwObjs < 15)
         {
             isRoaming = false;
             isChasing = true;
             navmesh.destination = player.transform.position;
             transform.LookAt(player.transform.position);
 
-            if(distanceBtwObjs < 4)
+            if (distanceBtwObjs < 4)
             {
                 anim.SetTrigger("Attack");
+            }
+            else
+            {
+                anim.SetTrigger("Roam");
             }
         }
         else
@@ -52,18 +56,18 @@ public class Enemy_Script : MonoBehaviour
             isChasing = false;
         }
 
-        if((distance < 1f || isRoaming == false) && isChasing == false)
+        if ((distance < 1f || isRoaming == false) && isChasing == false)
         {
             IncreaseIndex();
         }
 
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * Vector3.forward);
     }
 
     void IncreaseIndex()
     {
         waypointIndex++;
-        if(waypointIndex >= waypoints.Length)
+        if (waypointIndex >= waypoints.Length)
         {
             waypointIndex = 0;
         }
@@ -77,7 +81,16 @@ public class Enemy_Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             UI_Script.health -= 10;
-            Debug.Log("Hit");
+            UI_Script.hit = true;
         }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        UI_Script.health -= 0.5f;
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        UI_Script.hit = false;
     }
 }
