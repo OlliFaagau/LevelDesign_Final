@@ -9,6 +9,8 @@ public class UI_Script : MonoBehaviour
     static public float health = 100.0f;
     static public bool hit;
 
+    private float baseHealth = 100.0f;
+
     private GameObject[] collectables;
     private bool isPaused;
     private bool pressAllowed;
@@ -25,6 +27,9 @@ public class UI_Script : MonoBehaviour
         collectorSlider.maxValue = collectables.Length;
         collectorSlider.value = collectedNum;
         pressAllowed = true;
+
+        gameOverScreen.SetActive(false);
+        health = baseHealth;
 
         healthBar.value = health;
     }
