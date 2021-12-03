@@ -75,6 +75,8 @@ public class UI_Script : MonoBehaviour
             Time.timeScale = 0;
             AudioListener.pause = false;
             PlayerController.DisableMouseLook();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             pressAllowed = false;
         }
     }
@@ -84,6 +86,8 @@ public class UI_Script : MonoBehaviour
         Time.timeScale = 0;
         AudioListener.pause = true;
         pauseMenu.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         PlayerController.DisableMouseLook();
     }
 
@@ -92,6 +96,8 @@ public class UI_Script : MonoBehaviour
         Time.timeScale = 1;
         AudioListener.pause = false;
         pauseMenu.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
     }
 }
