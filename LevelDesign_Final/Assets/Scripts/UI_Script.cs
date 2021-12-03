@@ -61,7 +61,7 @@ public class UI_Script : MonoBehaviour
         }
         else
         {
-            hurtImage.color = Color.Lerp(hurtImage.color, Color.clear, 5f * Time.deltaTime);
+            hurtImage.color = Color.Lerp(hurtImage.color, Color.clear, 10f * Time.deltaTime);
         }
 
         CheckForDeath();
