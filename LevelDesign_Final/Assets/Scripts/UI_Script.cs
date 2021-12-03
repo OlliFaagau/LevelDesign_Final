@@ -10,6 +10,8 @@ public class UI_Script : MonoBehaviour
     static public bool hit;
 
     private GameObject[] collectables;
+    private bool isPaused;
+    public GameObject pauseMenu;
     public Color flashColor = new Color(1f, 0f, 0f, 0.1f);
     public Image hurtImage;
     public Slider collectorSlider;
@@ -29,6 +31,20 @@ public class UI_Script : MonoBehaviour
         collectorSlider.value = collectedNum;
         healthBar.value = health;
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            isPaused = !isPaused;
+        }
+
+        if(isPaused)
+        {
+            ActivateMenu();
+        }
+        else
+        {
+            DeactivateMenu();
+        }
+
         if (hit)
         {
             hurtImage.color = flashColor;
@@ -37,5 +53,20 @@ public class UI_Script : MonoBehaviour
         {
             hurtImage.color = Color.Lerp(hurtImage.color, Color.clear, 5f * Time.deltaTime);
         }
+    }
+
+    void ActivateMenu()
+    {
+        Time.timeScale = 0;
+        AudioListener.pause = true;
+        pauseMenu.SetActive(true);
+    }
+
+    public void DeactivateMenu()
+    {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        pauseMenu.SetActive(false);
+        isPaused = false;
     }
 }
