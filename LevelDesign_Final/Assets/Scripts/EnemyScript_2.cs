@@ -59,6 +59,7 @@ public class EnemyScript_2 : MonoBehaviour
         {
             UI_Script.health -= 10;
             UI_Script.hit = true;
+            Debug.Log("Hit");
         }
     }
 
