@@ -21,8 +21,16 @@ public class UI_Script : MonoBehaviour
     public Slider collectorSlider;
     public Slider healthBar;
 
+    public GameObject winScreen;
+    public GameObject enemies;
+
+    public GameObject fade;
+
     void Start()
     {
+        fade.SetActive(true);
+        StartCoroutine(Wait2());
+
         collectables = GameObject.FindGameObjectsWithTag("Collectable");
         collectorSlider.maxValue = collectables.Length;
         collectorSlider.value = collectedNum;
@@ -31,7 +39,7 @@ public class UI_Script : MonoBehaviour
         // Olli messed with ur script here
         health = baseHealth;
         collectedNum = 0;
-
+        hit = false;
         healthBar.value = health;
     }
 
@@ -105,5 +113,22 @@ public class UI_Script : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         isPaused = false;
+    }
+
+    public IEnumerator Wait()
+    {
+        enemies.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        winScreen.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        PlayerController.DisableMouseLook();
+        pressAllowed = false;
+    }
+
+    public IEnumerator Wait2()
+    {
+        yield return new WaitForSeconds(1.5f);
+        fade.SetActive(false);
     }
 }

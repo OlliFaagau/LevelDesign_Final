@@ -9,6 +9,7 @@ public class DoorAndExit : MonoBehaviour
     public GameObject noticePanel;
 
     public SceneChanger sceneScript;
+    public Animation fadeOut;
 
     void Update()
     {
@@ -26,6 +27,7 @@ public class DoorAndExit : MonoBehaviour
         }
         if(col.gameObject.tag == "Exit")
         {
+            fadeOut.Play();
             sceneScript.Level2();
         }
     }

@@ -14,9 +14,9 @@ public class EnemyScript_2 : MonoBehaviour
     private int destPoint;
     private float distance;
     private float distanceBtwObj;
-//    private bool isRoaming, isChasing;
+    //    private bool isRoaming, isChasing;
 
-
+    public AudioSource hitSound;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +59,7 @@ public class EnemyScript_2 : MonoBehaviour
         {
             UI_Script.health -= 10;
             UI_Script.hit = true;
+            hitSound.Play();
             Debug.Log("Hit");
         }
     }

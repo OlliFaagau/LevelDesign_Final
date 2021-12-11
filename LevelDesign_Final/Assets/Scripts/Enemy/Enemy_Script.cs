@@ -18,6 +18,8 @@ public class Enemy_Script : MonoBehaviour
     private bool isRoaming;
     private bool isChasing;
 
+    public AudioSource hitSound;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -82,6 +84,7 @@ public class Enemy_Script : MonoBehaviour
         {
             UI_Script.health -= 10;
             UI_Script.hit = true;
+            hitSound.Play();
         }
     }
 

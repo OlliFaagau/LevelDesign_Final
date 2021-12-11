@@ -5,7 +5,13 @@ using UnityEngine;
 public class AboutPage : MonoBehaviour
 {
     public GameObject page1, page2, page3, page4;
+    public GameObject fade;
 
+    void Start()
+    {
+        fade.SetActive(true);
+        StartCoroutine(Wait());
+    }
 
     public void DisplayPage1()
     {
@@ -37,5 +43,11 @@ public class AboutPage : MonoBehaviour
         page2.SetActive(false);
         page3.SetActive(false);
         page4.SetActive(false);
+    }
+
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.5f);
+        fade.SetActive(false);
     }
 }
