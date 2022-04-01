@@ -9,8 +9,4 @@ Olli Faagau
 
 GDD:
 
-https://bit.ly/3r2SXei
-
-TRELLO:
-
-https://bit.ly/3oPLOeA
+shorturl.at/impFJ
